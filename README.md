@@ -34,7 +34,7 @@ Antarmuka dirancang untuk beradaptasi dengan ukuran layar sentuh. Menggunakan si
 
 1. Clone repositori ke mesin lokal Anda:
 ```bash
-  git clone [https://github.com/username/offline-notes.git](https://github.com/username/offline-notes.git)
+  git clone [https://github.com/Tegarfirmansyah1/offline-notes.git](https://github.com/Tegarfirmansyah1/offline-notes.git)
   cd offline-notes
 ```
 
