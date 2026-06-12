@@ -35,7 +35,7 @@ Antarmuka dirancang untuk beradaptasi dengan ukuran layar sentuh. Menggunakan si
 1. Clone repositori ke mesin lokal Anda:
    ```bash
    git clone [https://github.com/username/am-notes.git](https://github.com/username/offline-notes.git)
-   cd am-notes
+   cd offline-notes
 
 2. Instalasi seluruh dependensi NPM:
   ```bash
