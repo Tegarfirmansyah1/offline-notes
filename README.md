@@ -32,17 +32,19 @@ Antarmuka dirancang untuk beradaptasi dengan ukuran layar sentuh. Menggunakan si
 
 ## Panduan Instalasi Lokal
 
-1. Clone repositori ke mesin lokal Anda:
-   ```bash
-   git clone [https://github.com/username/am-notes.git](https://github.com/username/offline-notes.git)
-   cd offline-notes
+## Panduan Instalasi Lokal
 
-2. Instalasi seluruh dependensi NPM:
-  ```bash
-npm install
+**1. Clone repositori ke mesin lokal Anda:**
+     ```bash
+     git clone [https://github.com/username/am-notes.git](https://github.com/username/am-notes.git)
+     cd am-notes
 
-3. Jalankan server pengembangan:
-  ```bash
-npm run dev
+**2. Instalasi seluruh dependensi NPM:**
+     ```bash
+     npm install
 
-4. Akses aplikasi melalui peramban di http://localhost:3000 (atau port terkait yang digunakan oleh Vite/Next).
+**3. Jalankan server pengembangan:**
+     ```bash
+     npm run dev
+
+**4. Akses aplikasi melalui peramban di http://localhost:3000 (atau port terkait yang digunakan oleh Vite/Next).**
