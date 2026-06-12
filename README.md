@@ -34,8 +34,8 @@ Antarmuka dirancang untuk beradaptasi dengan ukuran layar sentuh. Menggunakan si
 
 1. Clone repositori ke mesin lokal Anda:
 ```bash
-  git clone [https://github.com/username/am-notes.git](https://github.com/username/am-notes.git)
-  cd am-notes
+  git clone [https://github.com/username/offline-notes.git](https://github.com/username/offline-notes.git)
+  cd offline-notes
 ```
 
 2. Instalasi seluruh dependensi NPM:
@@ -49,7 +49,7 @@ Antarmuka dirancang untuk beradaptasi dengan ukuran layar sentuh. Menggunakan si
 ```
 
 4. Akses aplikasi:
-Buka http://localhost:3000 (atau port terkait yang digunakan oleh Vite/Next) melalui peramban Anda.
+Buka http://localhost:5173 (atau port terkait yang digunakan oleh Vite/Next) melalui peramban Anda.
 
 Panduan Deployment
 
