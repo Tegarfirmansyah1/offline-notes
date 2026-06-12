@@ -32,19 +32,25 @@ Antarmuka dirancang untuk beradaptasi dengan ukuran layar sentuh. Menggunakan si
 
 ## Panduan Instalasi Lokal
 
-## Panduan Instalasi Lokal
+1. Clone repositori ke mesin lokal Anda:
+  ```bash
+  git clone [https://github.com/username/am-notes.git](https://github.com/username/am-notes.git)
+  cd am-notes
 
-**1. Clone repositori ke mesin lokal Anda:**
-     ```bash
-     git clone [https://github.com/username/am-notes.git](https://github.com/username/am-notes.git)
-     cd am-notes
 
-**2. Instalasi seluruh dependensi NPM:**
-     ```bash
-     npm install
+2. Instalasi seluruh dependensi NPM:
+  ```bash
+  npm install
 
-**3. Jalankan server pengembangan:**
-     ```bash
-     npm run dev
 
-**4. Akses aplikasi melalui peramban di http://localhost:3000 (atau port terkait yang digunakan oleh Vite/Next).**
+3. Jalankan server pengembangan:
+  ```bash
+  npm run dev
+
+
+4. Akses aplikasi:
+Buka http://localhost:3000 (atau port terkait yang digunakan oleh Vite/Next) melalui peramban Anda.
+
+Panduan Deployment
+
+Karena aplikasi ini sepenuhnya berbasis klien (Client-Side) dan menggunakan penyimpanan persisten OPFS, Anda tidak perlu menyiapkan server database backend terpisah. Aplikasi ini ideal untuk lingkungan static hosting. Anda dapat langsung menghubungkan repositori GitHub ini ke platform seperti Vercel dan mengonfigurasi routing ke domain pribadi Anda, misalnya di notes.tegarfirmansyah.my.id.
