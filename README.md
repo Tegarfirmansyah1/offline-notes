@@ -1,73 +1,49 @@
-# React + TypeScript + Vite
+# AM Notes | Spatial Developer Edition
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+AM Notes adalah aplikasi pencatatan berbasis *spatial canvas* (papan tulis dua dimensi tak terbatas) yang dirancang khusus untuk *developer*, arsitek sistem, dan pemikir visual. Aplikasi ini mengusung arsitektur *Local-First* dan *Zero-Backend*, di mana seluruh pemrosesan dan penyimpanan data beroperasi secara lokal di dalam peramban (*browser*) pengguna.
 
-Currently, two official plugins are available:
+## Arsitektur & Fitur Utama
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### 1. Infinite Spatial Canvas
+Menggunakan antarmuka kanvas tak terbatas yang ditenagai oleh `React Flow`. Pengguna dapat memetakan ide, potongan kode, atau alur logika secara spasial. Setiap elemen (*node*) dapat dipindahkan, diubah ukurannya, dan dihubungkan satu sama lain menggunakan sistem garis relasi manual.
 
-## React Compiler
+### 2. Local-First & Zero Latency (OPFS + SQLite WASM)
+Tidak bergantung pada *database cloud* atau koneksi internet. Aplikasi ini menggunakan `SQLocal` untuk menjalankan mesin SQLite secara *native* di dalam peramban melalui WebAssembly (WASM). Data disimpan secara permanen dan aman di dalam Origin Private File System (OPFS), menjamin latensi nol (*zero latency*) saat membaca atau menulis catatan.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 3. FTS5 Lightning Search & Auto-Focus Camera
+Pencarian data ditangani langsung oleh mesin Full-Text Search (FTS5) bawaan SQLite. Proses pencarian bersifat deterministik dan memakan waktu dalam hitungan milidetik. Terintegrasi dengan *Viewport API*, kamera kanvas akan secara otomatis bergerak (*smooth panning & zooming*) menuju koordinat lokasi catatan yang dicari.
 
-## Expanding the ESLint configuration
+### 4. Developer-Grade Markdown Editor
+Editor teks terintegrasi dengan `react-markdown` dan `remark-gfm`. Mendukung format penulisan standar GitHub-Flavored Markdown. Pengguna dapat dengan mudah menulis dan merender tabel, daftar tugas, hingga blok kode (*code snippets*) secara presisi di dalam catatan.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 5. Auto-Expanding Kanban Zones
+Sistem tata letak hierarkis (*Parent-Child node mapping*). Catatan yang ditarik ke dalam area Zona secara otomatis akan terikat (*bound*) dengan Zona tersebut. Logika batas area (*bounding box*) telah diprogram agar dimensi Zona membesar secara otomatis (*auto-expand*) apabila muatan catatan di dalamnya bertambah.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 6. Mobile-Optimized Workspace
+Antarmuka dirancang untuk beradaptasi dengan ukuran layar sentuh. Menggunakan sistem *Responsive Drawer* untuk pengaturan ruang kerja dan *Floating Action Dock* khusus di perangkat seluler. Sistem navigasi sentuh dikonfigurasi secara ketat untuk mencegah gangguan gestur bawaan peramban seperti *pull-to-refresh*.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Tech Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+* **Core Framework:** React / Next.js
+* **Styling:** Tailwind CSS
+* **Spatial Engine:** @xyflow/react
+* **Local Database:** SQLocal (SQLite WebAssembly + OPFS)
+* **Markdown Parsing:** react-markdown, remark-gfm
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Panduan Instalasi Lokal
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. Clone repositori ke mesin lokal Anda:
+   ```bash
+   git clone [https://github.com/username/am-notes.git](https://github.com/username/offline-notes.git)
+   cd am-notes
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+2. Instalasi seluruh dependensi NPM:
+
+  ```bash
+npm install
+
+3. Jalankan server pengembangan:
+  ```bash
+npm run dev
+
+4. Akses aplikasi melalui peramban di http://localhost:3000 (atau port terkait yang digunakan oleh Vite/Next).
