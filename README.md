@@ -33,18 +33,18 @@ Antarmuka dirancang untuk beradaptasi dengan ukuran layar sentuh. Menggunakan si
 ## Panduan Instalasi Lokal
 
 1. Clone repositori ke mesin lokal Anda:
-  ```bash
+```bash
   git clone [https://github.com/username/am-notes.git](https://github.com/username/am-notes.git)
   cd am-notes
 
 
 2. Instalasi seluruh dependensi NPM:
-  ```bash
+```bash
   npm install
 
 
 3. Jalankan server pengembangan:
-  ```bash
+```bash
   npm run dev
 
 
