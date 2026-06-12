@@ -38,7 +38,6 @@ Antarmuka dirancang untuk beradaptasi dengan ukuran layar sentuh. Menggunakan si
    cd am-notes
 
 2. Instalasi seluruh dependensi NPM:
-
   ```bash
 npm install
 
