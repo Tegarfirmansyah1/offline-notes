@@ -36,17 +36,17 @@ Antarmuka dirancang untuk beradaptasi dengan ukuran layar sentuh. Menggunakan si
 ```bash
   git clone [https://github.com/username/am-notes.git](https://github.com/username/am-notes.git)
   cd am-notes
-
+```
 
 2. Instalasi seluruh dependensi NPM:
 ```bash
   npm install
-
+```
 
 3. Jalankan server pengembangan:
 ```bash
   npm run dev
-
+```
 
 4. Akses aplikasi:
 Buka http://localhost:3000 (atau port terkait yang digunakan oleh Vite/Next) melalui peramban Anda.
