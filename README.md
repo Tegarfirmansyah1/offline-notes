@@ -51,6 +51,6 @@ Antarmuka dirancang untuk beradaptasi dengan ukuran layar sentuh. Menggunakan si
 4. Akses aplikasi:
 Buka http://localhost:5173 (atau port terkait yang digunakan oleh Vite/Next) melalui peramban Anda.
 
-Panduan Deployment
+## Panduan Deployment
 
 Karena aplikasi ini sepenuhnya berbasis klien (Client-Side) dan menggunakan penyimpanan persisten OPFS, Anda tidak perlu menyiapkan server database backend terpisah. Aplikasi ini ideal untuk lingkungan static hosting. Anda dapat langsung menghubungkan repositori GitHub ini ke platform seperti Vercel dan mengonfigurasi routing ke domain pribadi Anda, misalnya di notes.tegarfirmansyah.my.id.
