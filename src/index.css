@@ -120,3 +120,54 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+
+/* 1. Matikan mutlak semua fitur sentuhan bawaan browser */
+.react-flow__resize-control {
+  touch-action: none !important;
+  -webkit-touch-callout: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+/* 2. Desain ulang tombol Resizer Catatan (Biru) tanpa membebani React */
+.custom-resizer-note {
+  width: 24px !important;
+  height: 24px !important;
+  background-color: #d40606 !important;
+  border: 3px solid #0f172a !important;
+  border-radius: 6px !important;
+}
+
+/* 3. Desain ulang tombol Resizer Zona (Hijau) */
+.custom-resizer-group {
+  width: 28px !important;
+  height: 28px !important;
+  background-color: #10b981 !important;
+  border: 3px solid #0f172a !important;
+  border-radius: 8px !important;
+}
+
+/* 4. KUNCI UTAMA: Hitbox Sentuh Gaib (Invisible Hitbox) */
+/* Membuat area yang bisa merespons sentuhan menjadi 2x lipat lebih besar
+   ke luar garis, meskipun tidak terlihat oleh mata. Jari lu tidak akan tergelincir! */
+.react-flow__resize-control.handle::after {
+  content: '';
+  position: absolute;
+  top: -24px;
+  left: -24px;
+  right: -24px;
+  bottom: -24px;
+  background-color: transparent; /* Tetap tak terlihat */
+}
+
+
+.react-flow__panel.react-flow__attribution,
+div[class*="react-flow__attribution"],
+a[href*="reactflow.dev"] {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  z-index: -9999 !important;
+}

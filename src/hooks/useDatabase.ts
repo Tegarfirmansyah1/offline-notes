@@ -54,7 +54,7 @@ export const db = {
       CREATE VIRTUAL TABLE IF NOT EXISTS notes_fts USING fts5(id UNINDEXED, title, content);
     `;
 
-    console.log('🔥 Database V3 (Hierarchical Spatial) Siap Tempur!');
+    console.log(' Database V3 (Hierarchical Spatial) Siap Tempur!');
   },
   
   getAllNotes: async () => {
