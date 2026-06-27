@@ -3,6 +3,7 @@ import { SQLocal } from 'sqlocal';
 
 // Migrasi ke V3 untuk mendukung Parent-Child binding
 const { sql } = new SQLocal('am_notes_v3.sqlite3');
+const client = new SQLocal('am_notes_v3.sqlite3');
 
 export interface NoteRecord {
   id: string;
@@ -23,6 +24,9 @@ export interface EdgeRecord {
   source: string;
   target: string;
 }
+
+export const getDatabaseFile = client.getDatabaseFile;
+export const overwriteDatabaseFile = client.overwriteDatabaseFile;
 
 export const db = {
   initDb: async () => {
@@ -110,4 +114,38 @@ export const db = {
   deleteEdge: async (id: string) => {
     await sql`DELETE FROM edges WHERE id = ${id}`;
   }
+  
 };
+export const backupDatabase = async () => {
+  try {
+    // Panggil fungsinya langsung tanpa 'db.'
+    const blob = await getDatabaseFile(); 
+    
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    
+    const date = new Date().toISOString().split('T')[0];
+    a.download = `kanban-backup-${date}.sqlite`;
+    
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error("Gagal mem-backup database:", error);
+    alert("Gagal melakukan backup data!");
+  }
+};
+
+export const restoreDatabase = async (file: File) => {
+  try {
+    // Panggil fungsinya langsung tanpa 'db.'
+    await overwriteDatabaseFile(file);
+    window.location.reload(); 
+  } catch (error) {
+    console.error("Gagal me-restore database:", error);
+    alert("File korup atau gagal me-restore data!");
+  }
+};
+

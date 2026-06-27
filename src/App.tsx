@@ -1,6 +1,9 @@
 // src/App.tsx
 import { useEffect, useState, useCallback } from 'react';
 import { db, type NoteRecord, type EdgeRecord } from './hooks/useDatabase';
+import { backupDatabase, restoreDatabase } from './hooks/useDatabase';
+import { useRef } from 'react';
+
 import { 
   ReactFlow, Controls, Background, applyNodeChanges, applyEdgeChanges,
   type NodeChange, type EdgeChange, type Node, type Edge, type Connection,
@@ -53,6 +56,27 @@ const edgeTypes = { custom: CustomEdge };
 // Tempat semua logika otak aplikasi, database, dan UI disatukan
 // =========================================
 function App() {
+
+// 1. Referensi untuk input file tersembunyi
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // 2. Fungsi untuk menangani saat file dipilih
+  const handleRestore = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const confirmRestore = window.confirm(
+      "Peringatan: Me-restore data akan menimpa semua catatan lu saat ini. Yakin mau lanjut?"
+    );
+
+    if (confirmRestore) {
+      await restoreDatabase(file);
+    }
+    
+    // Reset input biar bisa dipakai upload file yang sama lagi
+    e.target.value = '';
+  };
+
   const [nodes, setNodes] = useState<CustomNode[]>([]);
   const [edges, setEdges] = useState<Edge[]>([]);
   const [isDbReady, setIsDbReady] = useState<boolean>(false);
@@ -158,7 +182,7 @@ function App() {
   const onNodesChange = useCallback((changes: NodeChange<Node>[]) => setNodes((nds) => applyNodeChanges(changes as NodeChange<CustomNode>[], nds)), []);
 
  // =========================================
-  //  FITUR 1: PENCARIAN KILAT (FTS5) & AUTO-FOCUS KAMERA
+  //   PENCARIAN KILAT (FTS5) & AUTO-FOCUS KAMERA
   // =========================================
 
   const onNodeDragStop = async (_event: React.MouseEvent | React.TouchEvent | MouseEvent | TouchEvent, node: Node) => {
@@ -300,6 +324,35 @@ function App() {
             <button onClick={() => addNode('note')} className="flex-1 bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2.5 rounded-lg text-sm shadow transition-transform active:scale-95">+ Catatan</button>
             <button onClick={() => addNode('group')} className="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-lg text-sm shadow transition-transform active:scale-95">+ Zona</button>
           </div>
+        </div>
+
+        <div className="mt-8 pt-4 border-t border-gray-700">
+          <h3 className="text-xs font-semibold text-gray-400 mb-3 uppercase tracking-wider">
+            Data Manajemen
+          </h3>
+          
+          <button 
+            onClick={backupDatabase}
+            className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors"
+          >
+            💾 Backup Data
+          </button>
+
+          <button 
+            onClick={() => fileInputRef.current?.click()}
+            className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors mt-1"
+          >
+            📂 Restore Data
+          </button>
+
+          {/* Input file disembunyikan, cuma dipanggil lewat tombol di atas */}
+          <input 
+            type="file" 
+            accept=".sqlite,.sqlite3"
+            ref={fileInputRef}
+            onChange={handleRestore}
+            className="hidden" 
+          />
         </div>
 
         {/*  KONTEN BARU: NAVIGASI & MANAJEMEN (Terlihat di PC & HP) */}
