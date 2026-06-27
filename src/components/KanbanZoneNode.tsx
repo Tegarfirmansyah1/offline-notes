@@ -1,5 +1,5 @@
 import { memo, useState } from 'react';
-import { type NodeProps, type Node, useStore } from '@xyflow/react';
+import { type NodeProps, type Node, useStore , useReactFlow } from '@xyflow/react';
 
 type ZoneNodeData = {
   title: string;
@@ -11,7 +11,17 @@ type ZoneNodeData = {
 
 const KanbanZoneNode = memo(({ data, id }: NodeProps<Node<ZoneNodeData, 'group'>>) => {
   const [title, setTitle] = useState<string>(data.title);
-  const handleSave = () => data.onUpdateContent(id, title, data.content);
+  
+  // 🔥 1. Panggil useReactFlow buat dapetin akses ke memori state
+  const { updateNodeData } = useReactFlow();
+
+  const handleSave = () => {
+    // 2. Simpan ke Database
+    data.onUpdateContent(id, title, data.content);
+    
+    // 🔥 3. Sinkronisasi real-time ke sidebar tanpa perlu refresh!
+    updateNodeData(id, { ...data, title: title });
+  };
 
   const { zoneW, zoneH } = useStore((state) => {
     const children = state.nodes.filter((n) => n.parentId === id);
@@ -54,6 +64,7 @@ const KanbanZoneNode = memo(({ data, id }: NodeProps<Node<ZoneNodeData, 'group'>
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           onBlur={handleSave}
+          onKeyDown={(e) => e.key === 'Enter' && handleSave()} // 🔥 Biar enter juga otomatis nge-save
           className="bg-transparent text-emerald-400 font-black text-sm focus:outline-none w-full uppercase tracking-wider"
           placeholder="NAMA ZONA"
           onPointerDownCapture={(e) => e.stopPropagation()}
